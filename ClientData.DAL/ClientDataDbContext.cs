@@ -16,7 +16,12 @@ namespace ClientData.DAL
        public virtual DbSet<Server> Server { get; set; }
        public virtual DbSet<ServerDTODetail> ServerDTODetail { get; set; }
        public virtual DbSet<ServerDTODelete> ServerDTODelete { get; set; }
-       
+       public virtual DbSet<Project> Projects { get; set; }
+       public virtual DbSet<ProjectDTODetail> ProjectDTODetails { get; set; }
+        public virtual DbSet<ProjectDTODelete> ProjectDTODelete { get; set; }
+
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -31,6 +36,8 @@ namespace ClientData.DAL
             
             modelBuilder.Entity<ServerDTODelete>(eb => { eb.HasNoKey(); });
             modelBuilder.Entity<ServerDTODetail>(eb=> { eb.HasNoKey();});
+            modelBuilder.Entity<ProjectDTODetail>(eb => { eb.HasNoKey(); });
+            modelBuilder.Entity<ProjectDTODelete>(eb => { eb.HasNoKey(); });
 
         }
     }

@@ -19,6 +19,10 @@ namespace ClientData.DAL
        public virtual DbSet<Project> Projects { get; set; }
        public virtual DbSet<ProjectDTODetail> ProjectDTODetails { get; set; }
         public virtual DbSet<ProjectDTODelete> ProjectDTODelete { get; set; }
+        public virtual DbSet<ProjectServerMapping> ProjectServerMappings { get; set; }
+        public virtual DbSet<ProjectServerMappingDTODetail> ProjectServerMappingDTODetail { get; set; }
+        public virtual DbSet<ProjectServerMappingDTODelete> ProjectServerMappingDTODelete { get; set; }
+
 
 
 
@@ -38,6 +42,9 @@ namespace ClientData.DAL
             modelBuilder.Entity<ServerDTODetail>(eb=> { eb.HasNoKey();});
             modelBuilder.Entity<ProjectDTODetail>(eb => { eb.HasNoKey(); });
             modelBuilder.Entity<ProjectDTODelete>(eb => { eb.HasNoKey(); });
+            modelBuilder.Entity<ProjectServerMappingDTODetail>(eb => { eb.HasNoKey(); });
+            modelBuilder.Entity<ProjectServerMappingDTODelete>(eb => { eb.HasNoKey(); });
+            
 
         }
     }

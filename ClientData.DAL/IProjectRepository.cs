@@ -7,6 +7,8 @@ namespace ClientData.DAL
 {
     public interface IProjectRepository
     {
+
+
         public List<ProjectDTODetail> List();
         public ProjectDTODetail GetById(int id);
         public ProjectDTODetail Add(ProjectDTODetail obj);

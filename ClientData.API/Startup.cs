@@ -31,11 +31,17 @@ namespace ClientData.API
             DAL.Configure.ConfigureServices(services, cnnString);
             services.AddControllers().AddNewtonsoftJson();
 
+            //To access Applicaiton Specific Settings from appsettings.json using dependency injection
+            ////https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-3.
+            services.Configure<MyAppSettingsOptions>(Configuration.GetSection(MyAppSettingsOptions.MyAppSettings));
+
+
             services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(cnnString));
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDBContext>()
                 .AddDefaultTokenProviders();
 
+            
             //To enable CORS
             services.AddCors(options =>
             {

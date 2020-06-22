@@ -17,6 +17,7 @@ namespace ClientData.DAL
             services.AddScoped<IServerRepository, ServerRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IProjectServerMappingRepository, ProjectServerMappingRepository>();
+            services.AddScoped<IProjectDocumentMappingRepository, ProjectDocumentMappingRepository>();
         }
     }
 }

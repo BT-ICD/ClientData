@@ -25,7 +25,7 @@ namespace ClientData.DAL
         public virtual DbSet<ProjectDocumentMapping> ProjectDocumentMapping{ get; set; }
         public virtual DbSet<ProjectDocumentMappingDTODetails> ProjectDocumentMappingDTODetails { get; set; }
         public virtual DbSet<ProjectDocumentMappingDTODelete> ProjectDocumentMappingDTODelete { get; set; }
-
+        public virtual DbSet<DocumentTypeDTODetail> DocumentTypeDTODetail { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -47,6 +47,7 @@ namespace ClientData.DAL
             modelBuilder.Entity<ProjectServerMappingDTODelete>(eb => { eb.HasNoKey(); });
             modelBuilder.Entity<ProjectDocumentMappingDTODetails>(eb => { eb.HasNoKey(); });
             modelBuilder.Entity<ProjectDocumentMappingDTODelete>(eb => { eb.HasNoKey(); });
+            modelBuilder.Entity<DocumentTypeDTODetail>(eb => { eb.HasNoKey(); });
 
 
         }

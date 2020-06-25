@@ -16,7 +16,7 @@ namespace ClientData.DAL
         }
         public ProjectDocumentMappingDTODetails Add(ProjectDocumentMappingDTODetails  obj)
         {
-            var result = _context.ProjectDocumentMappingDTODetails.FromSqlRaw("Exec ProjectDocumentMapping_Insert {0},{1},{2},{3},{4}", obj.ProjectId, obj.DocumentTypeId, obj.ActualFileName, obj.StoreAsFileName, obj.Notes).ToList().FirstOrDefault();
+            var result = _context.ProjectDocumentMappingDTODetails.FromSqlRaw("Exec ProjectDocumentMapping_Insert {0},{1},{2},{3}", obj.ProjectId, obj.DocumentTypeId, obj.ActualFileName,  obj.Notes).ToList().FirstOrDefault();
             return result;
         }
         public ProjectDocumentMappingDTODetails Edit(ProjectDocumentMappingDTODetails obj)

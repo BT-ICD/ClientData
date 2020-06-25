@@ -40,17 +40,36 @@ namespace ClientData.API.Controllers
             return Ok(result);
         }
         [HttpPost]
-        public async Task<IActionResult> AddAsync(ProjectDocumentMappingDTODetails projectDocumentMappingDTODetails, IFormFile file)
+        public async Task<IActionResult> Add([FromForm] ProjectDocumentMappingDTOUpload projectDocumentMappingDTOUpload)
         {
-            long size = file.Length;
+
+            if (projectDocumentMappingDTOUpload.file == null)
+            {
+                return BadRequest("Invalid File, it must not null.");
+            }
+            long size = projectDocumentMappingDTOUpload.file.Length;
+            if (size ==0)
+            {
+                return BadRequest("Invalid File.");
+            }
             var documentFolderName = myAppSettingsOptions.ProjectDocuments;
-            var fileName = file.FileName;
-            var filePathDocument = AppContext.BaseDirectory + documentFolderName + "\\" + fileName;
+            var fileName = projectDocumentMappingDTOUpload.file.FileName;
+            
+
+            ProjectDocumentMappingDTODetails projectDocumentMappingDTODetails = new ProjectDocumentMappingDTODetails();
+            projectDocumentMappingDTODetails.ProjectId = projectDocumentMappingDTOUpload.ProjectId;
+            projectDocumentMappingDTODetails.DocumentTypeId = projectDocumentMappingDTOUpload.DocumentTypeId;
+            projectDocumentMappingDTODetails.Notes = projectDocumentMappingDTOUpload.Notes;
+            projectDocumentMappingDTODetails.ActualFileName = projectDocumentMappingDTOUpload.file.FileName;
+
+            var result = _IProjectDocumentMappingRepository.Add(projectDocumentMappingDTODetails);
+
+            var filePathDocument = AppContext.BaseDirectory + documentFolderName + "\\" + result.StoreAsFileName;
             using (var stream = System.IO.File.Create(filePathDocument))
             {
-                await file.CopyToAsync(stream);
+                await projectDocumentMappingDTOUpload.file.CopyToAsync(stream);
             }
-            var result = _IProjectDocumentMappingRepository.Add(projectDocumentMappingDTODetails);
+           
             //Upload Document
             return Ok(result);
         }
@@ -76,6 +95,7 @@ namespace ClientData.API.Controllers
         /// https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.http.iformcollection?view=aspnetcore-3.1
         /// https://stackoverflow.com/questions/51892706/asp-net-core-web-api-file-upload-and-form-data-multiple-parameter-passing-to-m
         /// Reading Multipart - Form Data - https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/sending-html-form-data-part-2
+        /// https://www.c-sharpcorner.com/article/upload-download-files-in-asp-net-core-2-0/
         /// </summary>
 
         [HttpPost]
@@ -111,5 +131,31 @@ namespace ClientData.API.Controllers
            // HttpContext.Request.Body
             return Ok();
         }
+        /// <summary>
+        /// Method which allows user to download file from ProdumentDocumentMappingID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+       [HttpGet]
+       [Route("{id:int}")]
+       public async Task<IActionResult> Download(int id)
+        {
+            var result = _IProjectDocumentMappingRepository.GetById(id);
+            if (result == null)
+                return NotFound();
+            string fileName = result.StoreAsFileName;
+            var documentFolderName = myAppSettingsOptions.ProjectDocuments;
+            var path = Path.Combine(AppContext.BaseDirectory, documentFolderName, fileName);
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            return File(memory, "application/octet-stream", fileName);
+            //var stream = System.IO.File.OpenRead(path);
+            //return new FileStreamResult(stream, "application/octet-stream");
+        }
     }
+    
 }

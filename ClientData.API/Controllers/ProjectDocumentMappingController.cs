@@ -74,11 +74,51 @@ namespace ClientData.API.Controllers
             return Ok(result);
         }
         [HttpPost]
-        public IActionResult Edit(ProjectDocumentMappingDTODetails projectDocumentMappingDTODetails)
+        public async Task<IActionResult> Edit([FromForm] ProjectDocumentMappingDTOEditWithFile projectDocumentMappingDTOEditWithFile)
         {
+            ProjectDocumentMappingDTODetails projectDocumentMappingDTODetails = new ProjectDocumentMappingDTODetails();
+
+            if (projectDocumentMappingDTOEditWithFile.file != null)
+            {
+                long size = projectDocumentMappingDTOEditWithFile.file.Length;
+                if (size == 0)
+                {
+                    return BadRequest("Invalid File.");
+                }
+            }
+
+            projectDocumentMappingDTODetails.ProjectDocumentMappingId = projectDocumentMappingDTOEditWithFile.ProjectDocumentMappingId;
+            projectDocumentMappingDTODetails.ProjectId = projectDocumentMappingDTOEditWithFile.ProjectId;
+            projectDocumentMappingDTODetails.DocumentTypeId = projectDocumentMappingDTOEditWithFile.DocumentTypeId;
+            projectDocumentMappingDTODetails.Notes = projectDocumentMappingDTOEditWithFile.Notes;
+
+            if (projectDocumentMappingDTOEditWithFile.file != null) { 
+                projectDocumentMappingDTODetails.ActualFileName = projectDocumentMappingDTOEditWithFile.file.FileName;
+
+            }
+            
             var result = _IProjectDocumentMappingRepository.Edit(projectDocumentMappingDTODetails);
+
+            if (projectDocumentMappingDTOEditWithFile.file != null) { 
+                var documentFolderName = myAppSettingsOptions.ProjectDocuments;
+                var fileName = projectDocumentMappingDTOEditWithFile.file.FileName;
+                var filePathDocument = AppContext.BaseDirectory + documentFolderName + "\\" + result.StoreAsFileName;
+                using (var stream = System.IO.File.Create(filePathDocument))
+                {
+                    await projectDocumentMappingDTOEditWithFile.file.CopyToAsync(stream);
+                }
+            }
+            //Upload Document
             return Ok(result);
         }
+
+        
+        //[HttpPost]
+        //public IActionResult Edit(ProjectDocumentMappingDTODetails projectDocumentMappingDTODetails)
+        //{
+        //    var result = _IProjectDocumentMappingRepository.Edit(projectDocumentMappingDTODetails);
+        //    return Ok(result);
+        //}
         [HttpPost]
         [Route("{id:int}")]
         public IActionResult Delete(int id)

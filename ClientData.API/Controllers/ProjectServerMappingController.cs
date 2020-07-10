@@ -34,13 +34,13 @@ namespace ClientData.API.Controllers
             return Ok(result);
         }
         [HttpPost]
-        public IActionResult Add(ProjectServerMappingDTODetail projectServerMappingDTODetail)
+        public IActionResult Add(ProjectServerMappingDTOAdd projectServerMappingDTODetail)
         {
             var resutlt = _IProjectServerMappingRepository.Add(projectServerMappingDTODetail);
             return Ok(resutlt);
         }
         [HttpPost]
-        public IActionResult Edit(ProjectServerMappingDTODetail projectServerMappingDTODetail)
+        public IActionResult Edit(ProjectServerMappingDTOEdit projectServerMappingDTODetail)
         {
             var resutlt = _IProjectServerMappingRepository.Edit(projectServerMappingDTODetail);
             return Ok(resutlt);

@@ -15,6 +15,8 @@ namespace ClientData.DAL
        public virtual DbSet<ServerTypeDTODelete> ServerTypeDelete { get; set; }
        public virtual DbSet<Server> Server { get; set; }
        public virtual DbSet<ServerDTODetail> ServerDTODetail { get; set; }
+        public virtual DbSet<ServerDTOFORLOV> ServerDTOFORLOV { get; set; }
+        
        public virtual DbSet<ServerDTODelete> ServerDTODelete { get; set; }
        public virtual DbSet<Project> Projects { get; set; }
        public virtual DbSet<ProjectDTODetail> ProjectDTODetails { get; set; }
@@ -38,7 +40,7 @@ namespace ClientData.DAL
                 });
             
             modelBuilder.Entity<ServerTypeDTODelete>(eb => { eb.HasNoKey(); });
-            
+            modelBuilder.Entity<ServerDTOFORLOV>(eb => { eb.HasNoKey(); });
             modelBuilder.Entity<ServerDTODelete>(eb => { eb.HasNoKey(); });
             modelBuilder.Entity<ServerDTODetail>(eb=> { eb.HasNoKey();});
             modelBuilder.Entity<ProjectDTODetail>(eb => { eb.HasNoKey(); });

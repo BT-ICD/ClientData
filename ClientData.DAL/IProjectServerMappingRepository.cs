@@ -9,8 +9,8 @@ namespace ClientData.DAL
     {
         public List<ProjectServerMappingDTODetail> List(int projectId);
         public ProjectServerMappingDTODetail GetById(int id);
-        public ProjectServerMappingDTODetail Add(ProjectServerMappingDTODetail obj);
-        public ProjectServerMappingDTODetail Edit(ProjectServerMappingDTODetail obj);
+        public ProjectServerMappingDTODetail Add(ProjectServerMappingDTOAdd obj);
+        public ProjectServerMappingDTODetail Edit(ProjectServerMappingDTOEdit obj);
         public ProjectServerMappingDTODelete Delete(int id);
     }
 }

@@ -43,6 +43,12 @@ namespace ClientData.DAL
             var result = _context.ServerDTODetail.FromSqlRaw("Exec Server_List").ToList();
             return result;
         }
+        public List<ServerDTOFORLOV> ListForLOV(int? ServerTypeId)
+        {
+            var result = _context.ServerDTOFORLOV.FromSqlRaw("Exec Server_List_ForLOV {0}", ServerTypeId).ToList();
+            return result;
+
+        }
 
     }
 }

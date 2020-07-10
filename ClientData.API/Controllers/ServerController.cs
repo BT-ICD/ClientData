@@ -51,6 +51,19 @@ namespace ClientData.API.Controllers
             var result = _IServerRepository.Delete(id);
             return Ok(result);
         }
+        /// <summary>
+        /// Method to get list of server Id and Server Name. Optionally filter by Server Type ID
+        /// Specially to fill server dropdown
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{id:int?}")]
+        public IActionResult ListForLOV(int? id)
+        {
+            var result = _IServerRepository.ListForLOV(id);
+            return Ok(result);
+        }
 
     }
 }

@@ -14,7 +14,7 @@ namespace ClientData.DAL
         {
             this._context = _context;
         }
-        public ProjectServerMappingDTODetail Add(ProjectServerMappingDTODetail obj)
+        public ProjectServerMappingDTODetail Add(ProjectServerMappingDTOAdd obj)
         {
             var result = _context.ProjectServerMappingDTODetail.FromSqlRaw("Exec ProjectServerMapping_Insert {0},{1},{2},{3},{4},{5},{6},{7},{8}", obj.ProjectId, obj.ServerId, obj.DeployedServerTypeId, obj.UrlToAccess, obj.DeployedLocation, obj.AppLogLocation, obj.DbServerID, obj.DbName, obj.Notes).ToList().FirstOrDefault();
             return result;
@@ -26,7 +26,7 @@ namespace ClientData.DAL
             return result;
         }
 
-        public ProjectServerMappingDTODetail Edit(ProjectServerMappingDTODetail obj)
+        public ProjectServerMappingDTODetail Edit(ProjectServerMappingDTOEdit obj)
         {
             
             var result = _context.ProjectServerMappingDTODetail.FromSqlRaw("Exec ProjectServerMapping_Edit {0},{1},{2},{3},{4},{5},{6},{7},{8},{9}",  obj.ProjectServerMappingId, obj.ProjectId, obj.ServerId, obj.DeployedServerTypeId, obj.UrlToAccess, obj.DeployedLocation, obj.AppLogLocation, obj.DbServerID,obj.DbName ,obj.Notes).ToList().FirstOrDefault();

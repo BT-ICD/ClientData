@@ -12,5 +12,6 @@ namespace ClientData.DAL
         public ServerDTODetail Add(ServerDTODetail obj);
         public ServerDTODetail Edit(ServerDTODetail obj);
         public ServerDTODelete Delete(int id);
+        public List<ServerDTOFORLOV> ListForLOV(int? ServerTypeId);
     }
 }

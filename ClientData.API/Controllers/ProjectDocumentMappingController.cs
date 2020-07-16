@@ -10,10 +10,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
+
 namespace ClientData.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class ProjectDocumentMappingController : ControllerBase
     {
         private readonly IProjectDocumentMappingRepository _IProjectDocumentMappingRepository;

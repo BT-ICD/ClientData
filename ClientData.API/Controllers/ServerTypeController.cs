@@ -4,13 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using ClientData.DAL;
 using ClientData.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClientData.API.Controllers
 {
+    
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class ServerTypeController : ControllerBase
     {
         private readonly IServerTypeRepository _IServerTypeRepository;

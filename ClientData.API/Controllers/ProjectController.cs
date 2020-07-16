@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ClientData.DAL;
 using ClientData.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClientData.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class ProjectController : ControllerBase
     {
         private readonly IProjectRepository _IProjectRepository;

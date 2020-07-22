@@ -12,7 +12,7 @@ namespace ClientData.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize]
+  //  [Authorize]
     public class ServerController : ControllerBase
     {
         private readonly IServerRepository _IServerRepository;

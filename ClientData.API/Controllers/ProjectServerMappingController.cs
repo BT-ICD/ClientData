@@ -12,7 +12,7 @@ namespace ClientData.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize]
+  //  [Authorize]
     public class ProjectServerMappingController : ControllerBase
     {
         private readonly IProjectServerMappingRepository _IProjectServerMappingRepository;

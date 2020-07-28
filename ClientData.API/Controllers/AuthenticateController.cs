@@ -18,9 +18,13 @@ namespace ClientData.API.Controllers
     public class AuthenticateController : ControllerBase
     {
         private UserManager<ApplicationUser> userManager;
+        //To implement custom password hasher - to store password without encryption
+        private CustomPasswordHasher customPasswordHasher;
         public AuthenticateController(UserManager<ApplicationUser> userManager)
         {
             this.userManager = userManager;
+            this.customPasswordHasher = new CustomPasswordHasher();
+            userManager.PasswordHasher = customPasswordHasher;
         }
         [HttpPost]
         [Route("login")]
@@ -58,5 +62,6 @@ namespace ClientData.API.Controllers
             }
             return Unauthorized();
         }
+        
     }
 }

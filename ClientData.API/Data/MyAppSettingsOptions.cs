@@ -9,5 +9,6 @@ namespace ClientData.API.Data
     {
         public const string MyAppSettings = "MyAppSettings";
         public string ProjectDocuments { get; set; }
+        public string DeploymentDocuments { get; set; }
     }
 }

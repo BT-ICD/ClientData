@@ -9,6 +9,7 @@ using ClientData.DAL;
 using ClientData.Models;
 using ClientData.API.Data;
 using Microsoft.Extensions.Options;
+using System.IO;
 
 namespace ClientData.API.Controllers
 {
@@ -111,5 +112,28 @@ namespace ClientData.API.Controllers
             var result = _IProjectDeploymentRepository.Delete(id);
             return Ok(result);
         }
+        ///<summary>
+        ///Allow user to download particular migration document based on Project Deployment Id
+        ///</summary>
+        ///
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Download(int id)
+        {
+            var result = _IProjectDeploymentRepository.GetById(id);
+            if (result == null)
+                return NotFound();
+            string fileName = result.StoreAsFileName;
+            var documentFolderName = myAppSettingsOptions.DeploymentDocuments;
+            var path = Path.Combine(AppContext.BaseDirectory, documentFolderName, fileName);
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            return File(memory, "application/octet-stream", fileName);
+        }
+
     }
 }

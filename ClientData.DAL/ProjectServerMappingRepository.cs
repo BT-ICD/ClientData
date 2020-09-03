@@ -39,9 +39,22 @@ namespace ClientData.DAL
             return result;
         }
 
+      
         public List<ProjectServerMappingDTODetail> List(int projectId)
         {
             var result = _context.ProjectServerMappingDTODetail.FromSqlRaw("Exec ProjectServerMapping_List {0}", projectId).ToList();
+            return result;
+        }
+        /// <summary>
+        /// To retuern list of server for particular project. 
+        /// Optional argument projectId. 
+        /// If projectId available return server for partocular project otherwise return servers for all the projects.
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public List<ProjectServerDTOForLOV> GetProjectServers(int? projectId)
+        {
+            var result = _context.ProjectServerDTOForLOV.FromSqlRaw("Exec ProjectServerMapping_ListForLOV {0}", projectId).ToList();
             return result;
         }
     }

@@ -12,5 +12,6 @@ namespace ClientData.DAL
         public ProjectServerMappingDTODetail Add(ProjectServerMappingDTOAdd obj);
         public ProjectServerMappingDTODetail Edit(ProjectServerMappingDTOEdit obj);
         public ProjectServerMappingDTODelete Delete(int id);
+        public List<ProjectServerDTOForLOV> GetProjectServers(int? projectId);
     }
 }

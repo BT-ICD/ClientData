@@ -55,5 +55,12 @@ namespace ClientData.API.Controllers
             var result = _IProjectServerMappingRepository.Delete(id);
             return Ok(result);
         }
+        [HttpGet]
+        [Route("{projectId:int?}")]
+        public IActionResult GetProjectServers(int? projectId)
+        {
+            var result = _IProjectServerMappingRepository.GetProjectServers(projectId);
+            return Ok(result);
+        }
     }
 }

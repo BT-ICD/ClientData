@@ -15,7 +15,7 @@ namespace ClientData.DAL
         }
         public ProjectDeploymentDTODetails Add(ProjectDeploymentDTOAdd obj)
         {
-            var result = _context.ProjectDeploymentDTODetails.FromSqlRaw("Exec ProjectDeployment_Insert {0},{1},{2},{3},{4},{5},{6}", obj.ProjectId, obj.DeploymentDate, obj.ServerId, obj.Features, obj.Version, obj.ActualFileName, obj.Notes).ToList().FirstOrDefault();
+            var result = _context.ProjectDeploymentDTODetails.FromSqlRaw("Exec ProjectDeployment_Insert {0},{1},{2},{3},{4},{5},{6}", obj.ProjectId, obj.DeploymentDate.ToString("dd-MMM-yyyy"), obj.ServerId, obj.Features, obj.Version, obj.ActualFileName, obj.Notes).ToList().FirstOrDefault();
             return result;
         }
 
@@ -27,7 +27,7 @@ namespace ClientData.DAL
 
         public ProjectDeploymentDTODetails Edit(ProjectDeploymentDTOEdit obj)
         {
-            var result = _context.ProjectDeploymentDTODetails.FromSqlRaw("Exec ProjectDeployment_Edit {0},{1},{2},{3},{4},{5},{6},{7}", obj.ProjectDeploymentId , obj.ProjectId, obj.DeploymentDate, obj.ServerId, obj.Features, obj.Version, obj.ActualFileName, obj.Notes).ToList().FirstOrDefault();
+            var result = _context.ProjectDeploymentDTODetails.FromSqlRaw("Exec ProjectDeployment_Edit {0},{1},{2},{3},{4},{5},{6},{7}", obj.ProjectDeploymentId , obj.ProjectId, obj.DeploymentDate.ToString("dd-MMM-yyyy"), obj.ServerId, obj.Features, obj.Version, obj.ActualFileName, obj.Notes).ToList().FirstOrDefault();
             return result;
         }
 

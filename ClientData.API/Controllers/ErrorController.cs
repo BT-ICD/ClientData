@@ -13,9 +13,9 @@ namespace ClientData.API.Controllers
     [ApiController]
     public class ErrorController : ControllerBase
     {
-        private readonly ILogger<ClientController> _logger;
+        private readonly ILogger<ErrorController> _logger;
 
-        public ErrorController(ILogger<ClientController> logger)
+        public ErrorController(ILogger<ErrorController> logger)
         {
             _logger = logger;
         }

@@ -45,9 +45,12 @@ namespace ClientData.API.Controllers
                         {
                             new Claim(ClaimTypes.Name, user.UserName),
                             new Claim(ClaimTypes.Role, roleName)
+                            
                         }),
-                    Issuer="Self",
-                    Expires= DateTime.Now.AddHours(3),
+                    Audience = "ExamProc2020",
+                    Issuer = "ExamProcAPI",
+
+                    Expires = DateTime.Now.AddHours(3),
                     SigningCredentials= new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                 };
                 var token = tokenHandler.CreateToken(tokenDescriptor);
@@ -55,6 +58,7 @@ namespace ClientData.API.Controllers
                 return Ok(
                     new
                     {
+                      
                         token = tokenString,
                         expiration= token.ValidTo,
                         roles = roleName

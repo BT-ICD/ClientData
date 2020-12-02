@@ -20,11 +20,13 @@ namespace ClientData.API.Controllers
         private UserManager<ApplicationUser> userManager;
         //To implement custom password hasher - to store password without encryption
         private CustomPasswordHasher customPasswordHasher;
-        public AuthenticateController(UserManager<ApplicationUser> userManager)
+        private readonly TokenGenerator tokenGenerator;
+        public AuthenticateController(UserManager<ApplicationUser> userManager, TokenGenerator tokenGenerator)
         {
             this.userManager = userManager;
             this.customPasswordHasher = new CustomPasswordHasher();
             userManager.PasswordHasher = customPasswordHasher;
+            this.tokenGenerator = tokenGenerator;
         }
         [HttpPost]
         [Route("login")]
@@ -35,34 +37,36 @@ namespace ClientData.API.Controllers
             {
                 var userRoles = await userManager.GetRolesAsync(user);
                 var cnt = userRoles.Count;
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("aaaaaaaaaaaaaaaa"));
-                var roleName = userRoles[0];
-                var tokenDescriptor = new SecurityTokenDescriptor()
-                {
-                    Subject= new ClaimsIdentity(
-                        new Claim[]
-                        {
-                            new Claim(ClaimTypes.Name, user.UserName),
-                            new Claim(ClaimTypes.Role, roleName)
+                var token = tokenGenerator.GenerateToken(user.UserName, userRoles[0]);
+                return Ok(token);
+                //var tokenHandler = new JwtSecurityTokenHandler();
+                //var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("aaaaaaaaaaaaaaaa"));
+                //var roleName = userRoles[0];
+                //var tokenDescriptor = new SecurityTokenDescriptor()
+                //{
+                //    Subject= new ClaimsIdentity(
+                //        new Claim[]
+                //        {
+                //            new Claim(ClaimTypes.Name, user.UserName),
+                //            new Claim(ClaimTypes.Role, roleName)
                             
-                        }),
-                    Audience = "ExamProc2020",
-                    Issuer = "ExamProcAPI",
+                //        }),
+                //    Audience = "ExamProc2020",
+                //    Issuer = "ExamProcAPI",
 
-                    Expires = DateTime.Now.AddHours(3),
-                    SigningCredentials= new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-                };
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                var tokenString = tokenHandler.WriteToken(token);
-                return Ok(
-                    new
-                    {
+                //    Expires = DateTime.Now.AddHours(3),
+                //    SigningCredentials= new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+                //};
+                //var token = tokenHandler.CreateToken(tokenDescriptor);
+                //var tokenString = tokenHandler.WriteToken(token);
+                //return Ok(
+                //    new
+                //    {
                       
-                        token = tokenString,
-                        expiration= token.ValidTo,
-                        roles = roleName
-                    });
+                //        token = tokenString,
+                //        expiration= token.ValidTo,
+                //        roles = roleName
+                //    });
             }
             return Unauthorized();
         }

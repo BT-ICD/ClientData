@@ -36,7 +36,8 @@ namespace ClientData.API
             //To access Applicaiton Specific Settings from appsettings.json using dependency injection
             ////https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-3.
             services.Configure<MyAppSettingsOptions>(Configuration.GetSection(MyAppSettingsOptions.MyAppSettings));
-
+            services.Configure<TokenSettingsOptions>(Configuration.GetSection(TokenSettingsOptions.TokenSettings));
+            services.AddScoped < TokenGenerator > ();
 
             services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(cnnString));
             services.AddIdentity<ApplicationUser, IdentityRole>()

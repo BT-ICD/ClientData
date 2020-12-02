@@ -7,6 +7,7 @@ using ClientData.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace ClientData.API.Controllers
 {
@@ -17,6 +18,7 @@ namespace ClientData.API.Controllers
     public class ServerTypeController : ControllerBase
     {
         private readonly IServerTypeRepository _IServerTypeRepository;
+        private readonly ILogger<DocumentTypeController> _logger;
         public ServerTypeController(IServerTypeRepository iServerTypeRepository)
         {
             this._IServerTypeRepository = iServerTypeRepository;

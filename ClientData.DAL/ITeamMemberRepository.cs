@@ -8,7 +8,7 @@ namespace ClientData.DAL
     {
         public List<TeamMemberDTO> List();
         public TeamMemberDTODetail GetById(int id);
-        public TeamMemberDTODetail Add(TeamMemberDTODetail teamMemberDTODetail);
+        public TeamMemberDTODetail Add(TeamMemberDTODetailAdd teamMemberDTODetail);
 
         public TeamMemberDTODetail Edit(TeamMemberDTODetail teamMemberDTODetail);
 

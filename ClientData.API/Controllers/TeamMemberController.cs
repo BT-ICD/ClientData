@@ -37,9 +37,9 @@ namespace ClientData.API.Controllers
             return Ok(result);
         }
         [HttpPost]
-        public IActionResult Add(TeamMemberDTODetail teamMemberDTODetail)
+        public IActionResult Add(TeamMemberDTODetailAdd teamMemberDTODetailAdd)
         {
-            var result = _IteamMemberRepository.Add(teamMemberDTODetail);
+            var result = _IteamMemberRepository.Add(teamMemberDTODetailAdd);
             return Ok(result);
         }
         [HttpPost]

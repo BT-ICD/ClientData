@@ -19,6 +19,7 @@ namespace ClientData.API.Controllers
         {
             _logger = logger;
         }
+        [HttpGet]
         //[Route("/error")]
         public IActionResult Error()
         {

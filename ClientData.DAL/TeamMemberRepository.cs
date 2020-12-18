@@ -14,7 +14,7 @@ namespace ClientData.DAL
         {
             _context = context;
         }
-        public TeamMemberDTODetail Add(TeamMemberDTODetail teamMemberDTODetail)
+        public TeamMemberDTODetail Add(TeamMemberDTODetailAdd teamMemberDTODetail)
         {
             var result = _context.TeamMemberDTODetail.FromSqlRaw("Exec TeamMember_Insert {0},{1},{2},{3},{4},{5}", teamMemberDTODetail.Name, teamMemberDTODetail.Email, teamMemberDTODetail.Mobile, teamMemberDTODetail.AlternateContact, teamMemberDTODetail.DOJ, teamMemberDTODetail.Notes).ToList().FirstOrDefault();
             return result;

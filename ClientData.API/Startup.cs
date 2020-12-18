@@ -33,6 +33,9 @@ namespace ClientData.API
             DAL.Configure.ConfigureServices(services, cnnString);
             services.AddControllers().AddNewtonsoftJson();
 
+            //To add Swagger middleware
+            services.AddSwaggerGen();
+
             //To access Applicaiton Specific Settings from appsettings.json using dependency injection
             ////https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-3.
             services.Configure<MyAppSettingsOptions>(Configuration.GetSection(MyAppSettingsOptions.MyAppSettings));
@@ -175,6 +178,13 @@ namespace ClientData.API
                 app.UseExceptionHandler("/error");
             }
             app.UseHttpsRedirection();
+
+            //to use Swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json","Our Project API V1");
+            });
 
             app.UseRouting();
             //To enable CORS
